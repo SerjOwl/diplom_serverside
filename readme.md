@@ -21,7 +21,7 @@ params = [
 ]
 
 for param in params:
-	requests.get(url, params=params)
+	requests.get(url, params=param)
 
 # await ask_deepseek('Привет', False, True) 
 # ask_deepseek_stream('Почему небо голубое?', False, False)
