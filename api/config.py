@@ -4,7 +4,7 @@ class Config:
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(Config, cls).__new__(cls)
-            cls._instance.port = 8801
+            cls._instance.port = 8000
             cls._instance.host = "127.0.0.1"
             cls._instance.deepseek_model = 'deepseek-r1:14b'
 

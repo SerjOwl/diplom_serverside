@@ -7,21 +7,10 @@ pip install пакетов
 pip install uvicorn
 
 это запускает апи
+перейти в папку diplom_serverside/api
 uvicorn main:app --reload
 
-/get-answer-from-deepseek?input_content=ПРОМПТ&deep_think=False&print_log=True
-
-// -------------------------------------------------------- //
-Серж напиши примеры запросов в send.py можешь просто список параметров написать и через for пройтись 
-
-Пример:
-params = [
-	{...},
-	{...}
-]
-
-for param in params:
-	requests.get(url, params=param)
+Пример в send.py есть
 
 # await ask_deepseek('Привет', False, True) 
 # ask_deepseek_stream('Почему небо голубое?', False, False)
