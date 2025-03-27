@@ -1,0 +1,350 @@
+[
+  {
+    "ContainingType": "SkyServer.Controllers.CommandLogsController",
+    "Method": "CreateUser",
+    "RelativePath": "api/CommandLogs/CreateCommandLog",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "commandlog",
+        "Type": "SkyServer.Models.CommandLogs",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.CommandLogsController",
+    "Method": "DeleteCommandLogs",
+    "RelativePath": "api/CommandLogs/DeleteCommandLogs",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "commandlog_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.CommandLogsController",
+    "Method": "EditCommandLogs",
+    "RelativePath": "api/CommandLogs/EditCommandLogs",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "commandlog",
+        "Type": "SkyServer.Models.CommandLogs",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.CommandLogsController",
+    "Method": "GetCommandLogs",
+    "RelativePath": "api/CommandLogs/GetCommandLogs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.ErrorLogsController",
+    "Method": "CreateErrorLog",
+    "RelativePath": "api/ErrorLogs/CreateErrorLog",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "errorlog",
+        "Type": "SkyServer.Models.ErrorLogs",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.ErrorLogsController",
+    "Method": "DeleteErrorLog",
+    "RelativePath": "api/ErrorLogs/DeleteErrorLog",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "errorlog_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.ErrorLogsController",
+    "Method": "EditErrorLog",
+    "RelativePath": "api/ErrorLogs/EditErrorLog",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "errorlog",
+        "Type": "SkyServer.Models.ErrorLogs",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.ErrorLogsController",
+    "Method": "GetErrorLogs",
+    "RelativePath": "api/ErrorLogs/GetErrorLogs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.HardwareController",
+    "Method": "CreateHardware",
+    "RelativePath": "api/Hardware/CreateHardware",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "hardware",
+        "Type": "SkyServer.Models.Hardware",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.HardwareController",
+    "Method": "DeleteHardware",
+    "RelativePath": "api/Hardware/DeleteHardware",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "hardware_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.HardwareController",
+    "Method": "EditHardware",
+    "RelativePath": "api/Hardware/EditHardware",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "hardware",
+        "Type": "SkyServer.Models.Hardware",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.HardwareController",
+    "Method": "GetHardware",
+    "RelativePath": "api/Hardware/GetHardware",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.NeuroLogsController",
+    "Method": "CreateNeuroLog",
+    "RelativePath": "api/NeuroLogs/CreateNeuroLog",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "neuroLog",
+        "Type": "SkyServer.Models.NeuroLogs",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.NeuroLogsController",
+    "Method": "DeleteNeuroLog",
+    "RelativePath": "api/NeuroLogs/DeleteNeuroLog",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "errorlog_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.NeuroLogsController",
+    "Method": "EditNeuroLog",
+    "RelativePath": "api/NeuroLogs/EditNeuroLog",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "neuroLog",
+        "Type": "SkyServer.Models.NeuroLogs",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.NeuroLogsController",
+    "Method": "GetNeuroLogs",
+    "RelativePath": "api/NeuroLogs/GetNeuroLogs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.PerformanceController",
+    "Method": "CreatePerformance",
+    "RelativePath": "api/Performance/CreatePerformance",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "performance",
+        "Type": "SkyServer.Models.Performance",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.PerformanceController",
+    "Method": "DeletePerformance",
+    "RelativePath": "api/Performance/DeletePerformance",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "performance_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.PerformanceController",
+    "Method": "EditPerformance",
+    "RelativePath": "api/Performance/EditPerformance",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "performance",
+        "Type": "SkyServer.Models.Performance",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.PerformanceController",
+    "Method": "GetPerformances",
+    "RelativePath": "api/Performance/GetPerformances",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.UsersController",
+    "Method": "CreateUser",
+    "RelativePath": "api/Users/CreateUser",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "SkyServer.Models.Users",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.UsersController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/Users/DeleteUser",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.UsersController",
+    "Method": "EditUser",
+    "RelativePath": "api/Users/EditUser",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "SkyServer.Models.Users",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.UsersController",
+    "Method": "GetUsers",
+    "RelativePath": "api/Users/GetUsers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]
