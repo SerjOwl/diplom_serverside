@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{FCCF5335-E38E-4F95-91A7-5A6B1FCD79B9}|SkyServer.csproj|c:\\users\\solly\\documents\\github\\diplom_serverside\\skyserver\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{FCCF5335-E38E-4F95-91A7-5A6B1FCD79B9}|SkyServer.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{FCCF5335-E38E-4F95-91A7-5A6B1FCD79B9}|SkyServer.csproj|c:\\users\\solly\\documents\\github\\diplom_serverside\\skyserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FCCF5335-E38E-4F95-91A7-5A6B1FCD79B9}|SkyServer.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FCCF5335-E38E-4F95-91A7-5A6B1FCD79B9}|SkyServer.csproj|c:\\users\\solly\\documents\\github\\diplom_serverside\\skyserver\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCCF5335-E38E-4F95-91A7-5A6B1FCD79B9}|SkyServer.csproj|solutionrelative:data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FCCF5335-E38E-4F95-91A7-5A6B1FCD79B9}|SkyServer.csproj|c:\\users\\solly\\documents\\github\\diplom_serverside\\skyserver\\controllers\\commandlogscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -17,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{FCCF5335-E38E-4F95-91A7-5A6B1FCD79B9}|SkyServer.csproj|c:\\users\\solly\\documents\\github\\diplom_serverside\\skyserver\\controllers\\errorstatsdailycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FCCF5335-E38E-4F95-91A7-5A6B1FCD79B9}|SkyServer.csproj|solutionrelative:controllers\\errorstatsdailycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FCCF5335-E38E-4F95-91A7-5A6B1FCD79B9}|SkyServer.csproj|c:\\users\\solly\\documents\\github\\diplom_serverside\\skyserver\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCCF5335-E38E-4F95-91A7-5A6B1FCD79B9}|SkyServer.csproj|solutionrelative:data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FCCF5335-E38E-4F95-91A7-5A6B1FCD79B9}|SkyServer.csproj|c:\\users\\solly\\documents\\github\\diplom_serverside\\skyserver\\models\\errorlogs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -73,10 +77,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{FCCF5335-E38E-4F95-91A7-5A6B1FCD79B9}|SkyServer.csproj|c:\\users\\solly\\documents\\github\\diplom_serverside\\skyserver\\controllers\\hardwarecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FCCF5335-E38E-4F95-91A7-5A6B1FCD79B9}|SkyServer.csproj|solutionrelative:controllers\\hardwarecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FCCF5335-E38E-4F95-91A7-5A6B1FCD79B9}|SkyServer.csproj|c:\\users\\solly\\documents\\github\\diplom_serverside\\skyserver\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{FCCF5335-E38E-4F95-91A7-5A6B1FCD79B9}|SkyServer.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -90,19 +90,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CommandLogsController.cs",
-              "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Controllers\\CommandLogsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CommandLogsController.cs",
-              "ToolTip": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Controllers\\CommandLogsController.cs",
-              "RelativeToolTip": "Controllers\\CommandLogsController.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAUwBcAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T15:13:56.248Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
@@ -110,11 +98,12 @@
               "RelativeToolTip": "Data\\AppDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T14:34:13.35Z"
+              "WhenOpened": "2025-04-30T14:34:13.35Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "NeurologsStatsController.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Controllers\\NeurologsStatsController.cs",
               "RelativeDocumentMoniker": "Controllers\\NeurologsStatsController.cs",
@@ -126,7 +115,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "HardwareController.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Controllers\\HardwareController.cs",
               "RelativeDocumentMoniker": "Controllers\\HardwareController.cs",
@@ -138,7 +127,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "NeuroLogs.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Models\\NeuroLogs.cs",
               "RelativeDocumentMoniker": "Models\\NeuroLogs.cs",
@@ -150,7 +139,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "ErrorLogs.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Models\\ErrorLogs.cs",
               "RelativeDocumentMoniker": "Models\\ErrorLogs.cs",
@@ -162,7 +151,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "ErrorStatsDaily.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Models\\ErrorStatsDaily.cs",
               "RelativeDocumentMoniker": "Models\\ErrorStatsDaily.cs",
@@ -174,7 +163,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "ErrorStatsDailyController.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Controllers\\ErrorStatsDailyController.cs",
               "RelativeDocumentMoniker": "Controllers\\ErrorStatsDailyController.cs",
@@ -186,20 +175,45 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAcwCMAAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAcwCkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-25T17:35:11.42Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-25T17:17:38.333Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CommandLogsController.cs",
+              "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Controllers\\CommandLogsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CommandLogsController.cs",
+              "ToolTip": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Controllers\\CommandLogsController.cs",
+              "RelativeToolTip": "Controllers\\CommandLogsController.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAUwBcAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-28T15:13:56.248Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "Users.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Models\\Users.cs",
               "RelativeDocumentMoniker": "Models\\Users.cs",
@@ -211,7 +225,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "ErrorLogsController.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Controllers\\ErrorLogsController.cs",
               "RelativeDocumentMoniker": "Controllers\\ErrorLogsController.cs",
@@ -223,7 +237,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "NeurologStats.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Models\\NeurologStats.cs",
               "RelativeDocumentMoniker": "Models\\NeurologStats.cs",
@@ -235,7 +249,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "Hardware.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Models\\Hardware.cs",
               "RelativeDocumentMoniker": "Models\\Hardware.cs",
@@ -247,7 +261,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "PerformanceController.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Controllers\\PerformanceController.cs",
               "RelativeDocumentMoniker": "Controllers\\PerformanceController.cs",
@@ -259,7 +273,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "CommandLogs.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Models\\CommandLogs.cs",
               "RelativeDocumentMoniker": "Models\\CommandLogs.cs",
@@ -271,7 +285,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "Performance.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Models\\Performance.cs",
               "RelativeDocumentMoniker": "Models\\Performance.cs",
@@ -283,7 +297,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "UsersController.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Controllers\\UsersController.cs",
               "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
@@ -295,7 +309,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "NeuroLogsController.cs",
               "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Controllers\\NeuroLogsController.cs",
               "RelativeDocumentMoniker": "Controllers\\NeuroLogsController.cs",
@@ -304,18 +318,6 @@
               "ViewState": "AgIAAD0AAAAAAAAAAAAYwFMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-20T12:29:25.954Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-25T17:17:38.333Z"
             }
           ]
         }

@@ -30,5 +30,19 @@ services:
     networks:
       - dev
 
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: SkyServer
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345678
+    networks:
+      - dev
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+        
 networks:
   dev:
+
+volumes:
+  postgres_data: # Declares the named volume
