@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// ErrorLogsController.cs
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SkyServer.Data;
 using SkyServer.Models;
@@ -16,56 +17,89 @@ namespace SkyServer.Controllers
             _context = context;
         }
 
-        // Метод для получения всех записей об ошибках
-        [HttpGet("GetErrorLogs")]
-        public async Task<IActionResult> GetErrorLogs()
+        [HttpGet]
+        public async Task<IActionResult> GetErrorLogs(
+            [FromQuery] int _end = 10,
+            [FromQuery] string _order = "ASC",
+            [FromQuery] string _sort = "id",
+            [FromQuery] int _start = 0,
+            [FromQuery] Dictionary<string, string> filter = null)
         {
-            var result = await _context.errorlogs.Select(x => new ErrorLogs()
+            int pageSize = _end - _start;
+            var query = _context.errorlogs.AsQueryable();
+
+            if (filter != null)
             {
-                errorlog_id = x.errorlog_id,
-                user_id = x.user_id,
-                error_type = x.error_type,
-                error_message = x.error_message,
-                stack_trace = x.stack_trace,
-                created_at = x.created_at
-            }).ToListAsync();
+                foreach (var kv in filter)
+                {
+                    switch (kv.Key.ToLower())
+                    {
+                        case "error_type":
+                            query = query.Where(e => e.error_type.Contains(kv.Value));
+                            break;
+                        case "error_message":
+                            query = query.Where(e => e.error_message.Contains(kv.Value));
+                            break;
+                    }
+                }
+            }
 
-            return Ok(result);
+            var sortProperty = _sort.ToLower() switch
+            {
+                _ => _sort
+            };
+            query = _order.ToUpper() == "ASC"
+                ? query.OrderBy(e => EF.Property<object>(e, sortProperty))
+                : query.OrderByDescending(e => EF.Property<object>(e, sortProperty));
+
+            int totalCount = await query.CountAsync();
+            var errorLogs = await query
+                .Skip(_start)
+                .Take(pageSize)
+                .ToListAsync();
+
+            Response.Headers.Append("X-Total-Count", totalCount.ToString());
+            Response.Headers.Append("Access-Control-Expose-Headers", "X-Total-Count");
+
+            return Ok(errorLogs);
         }
 
-        // Метод для создания новой записи об ошибке
-        [HttpPost("CreateErrorLog")]
-        public async Task<IActionResult> CreateErrorLog([FromBody] ErrorLogs errorlog)
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetErrorLog(int id)
         {
-            _context.errorlogs.Add(errorlog);
+            var errorLog = await _context.errorlogs.FindAsync(id);
+            return errorLog == null ? NotFound() : Ok(errorLog);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> CreateErrorLog([FromBody] ErrorLogs errorLog)
+        {
+            _context.errorlogs.Add(errorLog);
             await _context.SaveChangesAsync();
-
-            return Ok(errorlog);
+            return CreatedAtAction(nameof(GetErrorLog), new { id = errorLog.id }, errorLog);
         }
 
-        // Метод для редактирования записи об ошибке
-        [HttpPut("EditErrorLog")]
-        public async Task<IActionResult> EditErrorLog([FromBody] ErrorLogs errorlog)
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> EditErrorLog(int id, [FromBody] ErrorLogs errorLog)
         {
-            var rows = await _context.errorlogs.Where(x => x.errorlog_id == errorlog.errorlog_id)
-                .ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.user_id, errorlog.user_id)
-                .SetProperty(x => x.error_type, errorlog.error_type)
-                .SetProperty(x => x.error_message, errorlog.error_message)
-                .SetProperty(x => x.stack_trace, errorlog.stack_trace)
-                .SetProperty(x => x.created_at, errorlog.created_at)
-                );
+            if (id != errorLog.id) return BadRequest();
 
-            return Ok(errorlog);
+            _context.Entry(errorLog).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
 
-        // Метод для удаления записи об ошибке
-        [HttpDelete("DeleteErrorLog")]
-        public async Task<IActionResult> DeleteErrorLog(int errorlog_id)
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteErrorLog(int id)
         {
-            var rows = await _context.errorlogs.Where(x => x.errorlog_id == errorlog_id).ExecuteDeleteAsync();
-
-            return Ok(true);
+            await _context.errorlogs.Where(x => x.id == id).ExecuteDeleteAsync();
+            return NoContent();
         }
     }
 }

@@ -16,46 +16,99 @@ namespace SkyServer.Controllers
             _context = context;
         }
 
-        [HttpGet("GetUsers")]
-        public async Task<IActionResult> GetUsers()
+        [HttpGet]
+        public async Task<IActionResult> GetUsers(
+            [FromQuery] int _end = 10,
+            [FromQuery] string _order = "ASC",
+            [FromQuery] string _sort = "id",
+            [FromQuery] int _start = 0,
+            [FromQuery] Dictionary<string, string> filter = null)
         {
-            var result = await _context.users.Select(x => new Users()
-            {
-                user_id = x.user_id,
-                username = x.username,
-                email = x.email,
-                created_at = x.created_at,
-            }).ToListAsync();
+            // Calculate page size
+            int pageSize = _end - _start;
 
-            return Ok(result);
+            // Base query
+            var query = _context.users.AsQueryable();
+
+            // Apply filtering
+            if (filter != null)
+            {
+                foreach (var kv in filter)
+                {
+                    switch (kv.Key.ToLower())
+                    {
+                        case "username":
+                            query = query.Where(u => u.username.Contains(kv.Value));
+                            break;
+                        case "email":
+                            query = query.Where(u => u.email.Contains(kv.Value));
+                            break;
+                            // Add other filterable fields
+                    }
+                }
+            }
+
+            // Apply sorting
+            var sortProperty = _sort.ToLower() switch
+            {
+                _ => _sort
+            };
+            query = _order.ToUpper() == "ASC"
+                ? query.OrderBy(u => EF.Property<object>(u, sortProperty))
+                : query.OrderByDescending(u => EF.Property<object>(u, sortProperty));
+
+            // Get total count before pagination
+            int totalCount = await query.CountAsync();
+
+            // Apply pagination
+            var users = await query
+                .Skip(_start)
+                .Take(pageSize)
+                .ToListAsync();
+
+            // Add X-Total-Count header for React-Admin
+            Response.Headers.Append("X-Total-Count", totalCount.ToString());
+            Response.Headers.Append("Access-Control-Expose-Headers", "X-Total-Count");
+
+            return Ok(users);
         }
 
-        [HttpPost("CreateUser")]
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetUser(int id)
+        {
+            var user = await _context.users.FindAsync(id);
+            return user == null ? NotFound() : Ok(user);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateUser([FromBody] Users user)
         {
             _context.users.Add(user);
             await _context.SaveChangesAsync();
-
-            return Ok(user);
+            return CreatedAtAction(nameof(GetUser), new { id = user.id }, user);
         }
 
-        [HttpPut("EditUser")]
-        public async Task<IActionResult> EditUser([FromBody] Users user)
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> EditUser(int id, [FromBody] Users user)
         {
-            var rows = await _context.users.Where(x => x.user_id == user.user_id)
-                .ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.username, user.username)
-                .SetProperty(x => x.email, user.email));
+            if (id != user.id) return BadRequest();
 
-            return Ok(user);
+            _context.Entry(user).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
 
-        [HttpDelete("DeleteUser")]
-        public async Task<IActionResult> DeleteUser(int user_id)
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteUser(int id)
         {
-            var rows = await _context.users.Where(x => x.user_id == user_id).ExecuteDeleteAsync();
-
-            return Ok(true);
+            await _context.users.Where(x => x.id == id).ExecuteDeleteAsync();
+            return NoContent();
         }
     }
 }

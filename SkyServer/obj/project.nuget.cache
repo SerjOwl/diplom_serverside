@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "C/6By6ZuTls=",
+  "dgSpecHash": "MO1c3Y+sLBk=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Solly\\source\\repos\\SkyServer\\SkyServer.csproj",
+  "projectFilePath": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\SkyServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Solly\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.3\\microsoft.entityframeworkcore.9.0.3.nupkg.sha512",
     "C:\\Users\\Solly\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.3\\microsoft.entityframeworkcore.abstractions.9.0.3.nupkg.sha512",

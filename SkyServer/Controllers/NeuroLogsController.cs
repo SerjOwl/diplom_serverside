@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// NeuroLogsController.cs
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SkyServer.Data;
 using SkyServer.Models;
@@ -16,60 +17,89 @@ namespace SkyServer.Controllers
             _context = context;
         }
 
-        // Получение всех нейро-логов
-        [HttpGet("GetNeuroLogs")]
-        public async Task<IActionResult> GetNeuroLogs()
+        [HttpGet]
+        public async Task<IActionResult> GetNeuroLogs(
+            [FromQuery] int _end = 10,
+            [FromQuery] string _order = "ASC",
+            [FromQuery] string _sort = "id",
+            [FromQuery] int _start = 0,
+            [FromQuery] Dictionary<string, string> filter = null)
         {
-            var result = await _context.neurologs.Select(x => new NeuroLogs()
-            {
-                errorlog_id = x.errorlog_id,
-                user_id = x.user_id,
-                session_id = x.session_id,
-                prompt = x.prompt,
-                response_time = x.response_time,
-                input_tokens = x.input_tokens,
-                output_tokens = x.output_tokens,
-                error_messagge = x.error_messagge
-            }).ToListAsync();
+            int pageSize = _end - _start;
+            var query = _context.neurologs.AsQueryable();
 
-            return Ok(result);
+            if (filter != null)
+            {
+                foreach (var kv in filter)
+                {
+                    switch (kv.Key.ToLower())
+                    {
+                        case "prompt":
+                            query = query.Where(n => n.prompt.Contains(kv.Value));
+                            break;
+                        case "error_messagge":
+                            query = query.Where(n => n.error_message.Contains(kv.Value));
+                            break;
+                    }
+                }
+            }
+
+            var sortProperty = _sort.ToLower() switch
+            {
+                _ => _sort
+            };
+            query = _order.ToUpper() == "ASC"
+                ? query.OrderBy(n => EF.Property<object>(n, sortProperty))
+                : query.OrderByDescending(n => EF.Property<object>(n, sortProperty));
+
+            int totalCount = await query.CountAsync();
+            var neuroLogs = await query
+                .Skip(_start)
+                .Take(pageSize)
+                .ToListAsync();
+
+            Response.Headers.Append("X-Total-Count", totalCount.ToString());
+            Response.Headers.Append("Access-Control-Expose-Headers", "X-Total-Count");
+
+            return Ok(neuroLogs);
         }
 
-        // Создание нового нейро-лога
-        [HttpPost("CreateNeuroLog")]
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetNeuroLog(int id)
+        {
+            var neuroLog = await _context.neurologs.FindAsync(id);
+            return neuroLog == null ? NotFound() : Ok(neuroLog);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateNeuroLog([FromBody] NeuroLogs neuroLog)
         {
             _context.neurologs.Add(neuroLog);
             await _context.SaveChangesAsync();
-
-            return Ok(neuroLog);
+            return CreatedAtAction(nameof(GetNeuroLog), new { id = neuroLog.id }, neuroLog);
         }
 
-        // Редактирование нейро-лога
-        [HttpPut("EditNeuroLog")]
-        public async Task<IActionResult> EditNeuroLog([FromBody] NeuroLogs neuroLog)
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> EditNeuroLog(int id, [FromBody] NeuroLogs neuroLog)
         {
-            var rows = await _context.neurologs.Where(x => x.errorlog_id == neuroLog.errorlog_id)
-                .ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.user_id, neuroLog.user_id)
-                .SetProperty(x => x.session_id, neuroLog.session_id)
-                .SetProperty(x => x.prompt, neuroLog.prompt)
-                .SetProperty(x => x.response_time, neuroLog.response_time)
-                .SetProperty(x => x.input_tokens, neuroLog.input_tokens)
-                .SetProperty(x => x.output_tokens, neuroLog.output_tokens)
-                .SetProperty(x => x.error_messagge, neuroLog.error_messagge)
-                );
+            if (id != neuroLog.id) return BadRequest();
 
-            return Ok(neuroLog);
+            _context.Entry(neuroLog).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
 
-        // Удаление нейро-лога
-        [HttpDelete("DeleteNeuroLog")]
-        public async Task<IActionResult> DeleteNeuroLog(int errorlog_id)
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteNeuroLog(int id)
         {
-            var rows = await _context.neurologs.Where(x => x.errorlog_id == errorlog_id).ExecuteDeleteAsync();
-
-            return Ok(true);
+            await _context.neurologs.Where(x => x.id == id).ExecuteDeleteAsync();
+            return NoContent();
         }
     }
 }

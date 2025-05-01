@@ -12,6 +12,17 @@ namespace SkyServer
 
             // Add services to the container.
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("ReactAdmin", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .WithExposedHeaders("X-Total-Count");
+                });
+            });
+
             builder.Services.AddControllers();
 
             builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -30,6 +41,9 @@ namespace SkyServer
             }
 
             app.UseHttpsRedirection();
+
+            app.UseRouting();
+            app.UseCors("ReactAdmin"); // Must be after UseRouting, before UseAuthorization
 
             app.UseAuthorization();
 

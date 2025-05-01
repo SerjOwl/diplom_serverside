@@ -1,31 +1,35 @@
 [
   {
     "ContainingType": "SkyServer.Controllers.CommandLogsController",
-    "Method": "CreateUser",
-    "RelativePath": "api/CommandLogs/CreateCommandLog",
-    "HttpMethod": "POST",
+    "Method": "GetCommandLogs",
+    "RelativePath": "api/CommandLogs",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "commandlog",
-        "Type": "SkyServer.Models.CommandLogs",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SkyServer.Controllers.CommandLogsController",
-    "Method": "DeleteCommandLogs",
-    "RelativePath": "api/CommandLogs/DeleteCommandLogs",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "commandlog_id",
+        "Name": "_end",
         "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "_order",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "_sort",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "_start",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "filter",
+        "Type": "System.Collections.Generic.Dictionary\u00602[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       }
     ],
@@ -33,150 +37,459 @@
   },
   {
     "ContainingType": "SkyServer.Controllers.CommandLogsController",
-    "Method": "EditCommandLogs",
-    "RelativePath": "api/CommandLogs/EditCommandLogs",
+    "Method": "CreateCommandLog",
+    "RelativePath": "api/CommandLogs",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "commandLog",
+        "Type": "SkyServer.Models.CommandLogs",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 201
+      }
+    ]
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.CommandLogsController",
+    "Method": "GetCommandLog",
+    "RelativePath": "api/CommandLogs/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.CommandLogsController",
+    "Method": "EditCommandLog",
+    "RelativePath": "api/CommandLogs/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "commandlog",
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "commandLog",
         "Type": "SkyServer.Models.CommandLogs",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ]
   },
   {
     "ContainingType": "SkyServer.Controllers.CommandLogsController",
-    "Method": "GetCommandLogs",
-    "RelativePath": "api/CommandLogs/GetCommandLogs",
+    "Method": "DeleteCommandLog",
+    "RelativePath": "api/CommandLogs/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      }
+    ]
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.ErrorLogsController",
+    "Method": "GetErrorLogs",
+    "RelativePath": "api/ErrorLogs",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "_end",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "_order",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "_sort",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "_start",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "filter",
+        "Type": "System.Collections.Generic.Dictionary\u00602[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
     "ContainingType": "SkyServer.Controllers.ErrorLogsController",
     "Method": "CreateErrorLog",
-    "RelativePath": "api/ErrorLogs/CreateErrorLog",
+    "RelativePath": "api/ErrorLogs",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "errorlog",
+        "Name": "errorLog",
         "Type": "SkyServer.Models.ErrorLogs",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 201
+      }
+    ]
   },
   {
     "ContainingType": "SkyServer.Controllers.ErrorLogsController",
-    "Method": "DeleteErrorLog",
-    "RelativePath": "api/ErrorLogs/DeleteErrorLog",
-    "HttpMethod": "DELETE",
+    "Method": "GetErrorLog",
+    "RelativePath": "api/ErrorLogs/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "errorlog_id",
+        "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
   },
   {
     "ContainingType": "SkyServer.Controllers.ErrorLogsController",
     "Method": "EditErrorLog",
-    "RelativePath": "api/ErrorLogs/EditErrorLog",
+    "RelativePath": "api/ErrorLogs/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "errorlog",
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "errorLog",
         "Type": "SkyServer.Models.ErrorLogs",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ]
   },
   {
     "ContainingType": "SkyServer.Controllers.ErrorLogsController",
-    "Method": "GetErrorLogs",
-    "RelativePath": "api/ErrorLogs/GetErrorLogs",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SkyServer.Controllers.HardwareController",
-    "Method": "CreateHardware",
-    "RelativePath": "api/Hardware/CreateHardware",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "hardware",
-        "Type": "SkyServer.Models.Hardware",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SkyServer.Controllers.HardwareController",
-    "Method": "DeleteHardware",
-    "RelativePath": "api/Hardware/DeleteHardware",
+    "Method": "DeleteErrorLog",
+    "RelativePath": "api/ErrorLogs/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "hardware_id",
+        "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SkyServer.Controllers.HardwareController",
-    "Method": "EditHardware",
-    "RelativePath": "api/Hardware/EditHardware",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "hardware",
-        "Type": "SkyServer.Models.Hardware",
         "IsRequired": true
       }
     ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      }
+    ]
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.ErrorStatsDailyController",
+    "Method": "GetErrorStatsDaily",
+    "RelativePath": "api/ErrorStatsDaily",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
     "ContainingType": "SkyServer.Controllers.HardwareController",
     "Method": "GetHardware",
-    "RelativePath": "api/Hardware/GetHardware",
+    "RelativePath": "api/Hardware",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "_end",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "_order",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "_sort",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "_start",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "filter",
+        "Type": "System.Collections.Generic.Dictionary\u00602[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.HardwareController",
+    "Method": "CreateHardware",
+    "RelativePath": "api/Hardware",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "hardware",
+        "Type": "SkyServer.Models.Hardware",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 201
+      }
+    ]
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.HardwareController",
+    "Method": "GetHardware",
+    "RelativePath": "api/Hardware/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.HardwareController",
+    "Method": "EditHardware",
+    "RelativePath": "api/Hardware/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "hardware",
+        "Type": "SkyServer.Models.Hardware",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ]
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.HardwareController",
+    "Method": "DeleteHardware",
+    "RelativePath": "api/Hardware/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      }
+    ]
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.NeuroLogsController",
+    "Method": "GetNeuroLogs",
+    "RelativePath": "api/NeuroLogs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "_end",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "_order",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "_sort",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "_start",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "filter",
+        "Type": "System.Collections.Generic.Dictionary\u00602[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
     "ContainingType": "SkyServer.Controllers.NeuroLogsController",
     "Method": "CreateNeuroLog",
-    "RelativePath": "api/NeuroLogs/CreateNeuroLog",
+    "RelativePath": "api/NeuroLogs",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -187,112 +500,300 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 201
+      }
+    ]
   },
   {
     "ContainingType": "SkyServer.Controllers.NeuroLogsController",
-    "Method": "DeleteNeuroLog",
-    "RelativePath": "api/NeuroLogs/DeleteNeuroLog",
-    "HttpMethod": "DELETE",
+    "Method": "GetNeuroLog",
+    "RelativePath": "api/NeuroLogs/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "errorlog_id",
+        "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
   },
   {
     "ContainingType": "SkyServer.Controllers.NeuroLogsController",
     "Method": "EditNeuroLog",
-    "RelativePath": "api/NeuroLogs/EditNeuroLog",
+    "RelativePath": "api/NeuroLogs/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
       {
         "Name": "neuroLog",
         "Type": "SkyServer.Models.NeuroLogs",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ]
   },
   {
     "ContainingType": "SkyServer.Controllers.NeuroLogsController",
-    "Method": "GetNeuroLogs",
-    "RelativePath": "api/NeuroLogs/GetNeuroLogs",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SkyServer.Controllers.PerformanceController",
-    "Method": "CreatePerformance",
-    "RelativePath": "api/Performance/CreatePerformance",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "performance",
-        "Type": "SkyServer.Models.Performance",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SkyServer.Controllers.PerformanceController",
-    "Method": "DeletePerformance",
-    "RelativePath": "api/Performance/DeletePerformance",
+    "Method": "DeleteNeuroLog",
+    "RelativePath": "api/NeuroLogs/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "performance_id",
+        "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SkyServer.Controllers.PerformanceController",
-    "Method": "EditPerformance",
-    "RelativePath": "api/Performance/EditPerformance",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "performance",
-        "Type": "SkyServer.Models.Performance",
         "IsRequired": true
       }
     ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      }
+    ]
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.NeurologsStatsController",
+    "Method": "GetNeurologsStats",
+    "RelativePath": "api/NeurologsStats",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
     "ContainingType": "SkyServer.Controllers.PerformanceController",
     "Method": "GetPerformances",
-    "RelativePath": "api/Performance/GetPerformances",
+    "RelativePath": "api/Performance",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "_end",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "_order",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "_sort",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "_start",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "filter",
+        "Type": "System.Collections.Generic.Dictionary\u00602[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.PerformanceController",
+    "Method": "CreatePerformance",
+    "RelativePath": "api/Performance",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "performance",
+        "Type": "SkyServer.Models.Performance",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 201
+      }
+    ]
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.PerformanceController",
+    "Method": "GetPerformance",
+    "RelativePath": "api/Performance/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.PerformanceController",
+    "Method": "EditPerformance",
+    "RelativePath": "api/Performance/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "performance",
+        "Type": "SkyServer.Models.Performance",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ]
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.PerformanceController",
+    "Method": "DeletePerformance",
+    "RelativePath": "api/Performance/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      }
+    ]
+  },
+  {
+    "ContainingType": "SkyServer.Controllers.UsersController",
+    "Method": "GetUsers",
+    "RelativePath": "api/Users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "_end",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "_order",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "_sort",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "_start",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "filter",
+        "Type": "System.Collections.Generic.Dictionary\u00602[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
     "ContainingType": "SkyServer.Controllers.UsersController",
     "Method": "CreateUser",
-    "RelativePath": "api/Users/CreateUser",
+    "RelativePath": "api/Users",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -303,48 +804,101 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 201
+      }
+    ]
   },
   {
     "ContainingType": "SkyServer.Controllers.UsersController",
-    "Method": "DeleteUser",
-    "RelativePath": "api/Users/DeleteUser",
-    "HttpMethod": "DELETE",
+    "Method": "GetUser",
+    "RelativePath": "api/Users/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "user_id",
+        "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
   },
   {
     "ContainingType": "SkyServer.Controllers.UsersController",
     "Method": "EditUser",
-    "RelativePath": "api/Users/EditUser",
+    "RelativePath": "api/Users/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
       {
         "Name": "user",
         "Type": "SkyServer.Models.Users",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ]
   },
   {
     "ContainingType": "SkyServer.Controllers.UsersController",
-    "Method": "GetUsers",
-    "RelativePath": "api/Users/GetUsers",
-    "HttpMethod": "GET",
+    "Method": "DeleteUser",
+    "RelativePath": "api/Users/{id}",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      }
+    ]
   }
 ]

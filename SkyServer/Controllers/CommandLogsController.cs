@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// CommandLogsController.cs
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SkyServer.Data;
 using SkyServer.Models;
@@ -16,52 +17,89 @@ namespace SkyServer.Controllers
             _context = context;
         }
 
-        [HttpGet("GetCommandLogs")]
-        public async Task<IActionResult> GetCommandLogs()
+        [HttpGet]
+        public async Task<IActionResult> GetCommandLogs(
+            [FromQuery] int _end = 10,
+            [FromQuery] string _order = "ASC",
+            [FromQuery] string _sort = "id",
+            [FromQuery] int _start = 0,
+            [FromQuery] Dictionary<string, string> filter = null)
         {
-            var result = await _context.commandlogs.Select(x => new CommandLogs()
+            int pageSize = _end - _start;
+            var query = _context.commandlogs.AsQueryable();
+
+            if (filter != null)
             {
-                commandlog_id = x.commandlog_id,
-                user_id = x.user_id,
-                created_at = x.created_at,
-                command = x.command,
-                response = x.response,
-                confidence_level = x.confidence_level,
-            }).ToListAsync();
+                foreach (var kv in filter)
+                {
+                    switch (kv.Key.ToLower())
+                    {
+                        case "command":
+                            query = query.Where(c => c.command.Contains(kv.Value));
+                            break;
+                        case "response":
+                            query = query.Where(c => c.response.Contains(kv.Value));
+                            break;
+                    }
+                }
+            }
 
-            return Ok(result);
+            var sortProperty = _sort.ToLower() switch
+            {
+                _ => _sort
+            };
+            query = _order.ToUpper() == "ASC"
+                ? query.OrderBy(c => EF.Property<object>(c, sortProperty))
+                : query.OrderByDescending(c => EF.Property<object>(c, sortProperty));
+
+            int totalCount = await query.CountAsync();
+            var commandLogs = await query
+                .Skip(_start)
+                .Take(pageSize)
+                .ToListAsync();
+
+            Response.Headers.Append("X-Total-Count", totalCount.ToString());
+            Response.Headers.Append("Access-Control-Expose-Headers", "X-Total-Count");
+
+            return Ok(commandLogs);
         }
 
-        [HttpPost("CreateCommandLog")]
-        public async Task<IActionResult> CreateUser([FromBody] CommandLogs commandlog)
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetCommandLog(int id)
         {
-            _context.commandlogs.Add(commandlog);
+            var commandLog = await _context.commandlogs.FindAsync(id);
+            return commandLog == null ? NotFound() : Ok(commandLog);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> CreateCommandLog([FromBody] CommandLogs commandLog)
+        {
+            _context.commandlogs.Add(commandLog);
             await _context.SaveChangesAsync();
-
-            return Ok(commandlog);
+            return CreatedAtAction(nameof(GetCommandLog), new { id = commandLog.id }, commandLog);
         }
 
-        [HttpPut("EditCommandLogs")]
-        public async Task<IActionResult> EditCommandLogs([FromBody] CommandLogs commandlog)
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> EditCommandLog(int id, [FromBody] CommandLogs commandLog)
         {
-            var rows = await _context.commandlogs.Where(x => x.commandlog_id == commandlog.commandlog_id)
-                .ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.user_id, commandlog.user_id)
-                .SetProperty(x => x.created_at, commandlog.created_at)
-                .SetProperty(x => x.command, commandlog.command)
-                .SetProperty(x => x.response, commandlog.response)
-                .SetProperty(x => x.confidence_level, commandlog.confidence_level)
-                );
+            if (id != commandLog.id) return BadRequest();
 
-            return Ok(commandlog);
+            _context.Entry(commandLog).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
 
-        [HttpDelete("DeleteCommandLogs")]
-        public async Task<IActionResult> DeleteCommandLogs(int commandlog_id)
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteCommandLog(int id)
         {
-            var rows = await _context.commandlogs.Where(x => x.commandlog_id == commandlog_id).ExecuteDeleteAsync();
-
-            return Ok(true);
+            await _context.commandlogs.Where(x => x.id == id).ExecuteDeleteAsync();
+            return NoContent();
         }
     }
 }

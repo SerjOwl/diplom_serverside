@@ -20,4 +20,4 @@ else:
     print(f"Error: {response.status_code}")
 
 # Пример запроса
-# http://127.0.0.1:8000/ask_deepseek?input_content=Привет!&user_id=1
+# http://127.0.0.1:7171/ask_deepseek?input_content=Привет!&user_id=1

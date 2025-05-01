@@ -6,11 +6,13 @@ import uuid
 
 from ollama import chat, ChatResponse
 from fastapi import FastAPI, Query
+from fastapi.middleware.cors import CORSMiddleware
 from config import Config
 
 system_prompt = 'You are a module of an application called SkyAI. You must answer only in Russian language.'
 
 app = FastAPI()
+
 config = Config()
 
 @app.get("/ask_deepseek")
@@ -30,6 +32,20 @@ async def ask_deepseek(
 
     if not session_id:
         session_id = str(uuid.uuid4())
+
+    # тестовый режим работы сервера, просто отправляю приколы обратно. В падлу разворачивать на сервере ЛЛМ
+    if user_id != None:
+        return {
+        "user_id": user_id,
+        "session_id": "test session_id",
+        "prompt": input_content,
+        "response": input_content,
+        "deep_think": "test deep_think",
+        "response_time": "test response_time",
+        "input_tokens": "test input_tokens",
+        "output_tokens": "test output_tokens",
+        "error_message": "test error_message"
+    }
 
     try:
         response: ChatResponse = chat(
@@ -67,6 +83,17 @@ async def ask_deepseek(
         "output_tokens": output_tokens,
         "error_message": error_message
     }
+
+origins = ["*"]
+# origins = ["http://localhost:5173"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 if __name__ == "__main__":
     uvicorn.run(app, host=config.host, port=config.port)

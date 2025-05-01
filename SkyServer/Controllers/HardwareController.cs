@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// HardwareController.cs
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SkyServer.Data;
 using SkyServer.Models;
@@ -16,54 +17,89 @@ namespace SkyServer.Controllers
             _context = context;
         }
 
-        // Получение всех записей о железе
-        [HttpGet("GetHardware")]
-        public async Task<IActionResult> GetHardware()
+        [HttpGet]
+        public async Task<IActionResult> GetHardware(
+            [FromQuery] int _end = 10,
+            [FromQuery] string _order = "ASC",
+            [FromQuery] string _sort = "id",
+            [FromQuery] int _start = 0,
+            [FromQuery] Dictionary<string, string> filter = null)
         {
-            var result = await _context.hardware.Select(x => new Hardware()
-            {
-                hardware_id = x.hardware_id,
-                user_id = x.user_id,
-                cpu_model = x.cpu_model,
-                gpu_model = x.gpu_model,
-                ram_amount = x.ram_amount
-            }).ToListAsync();
+            int pageSize = _end - _start;
+            var query = _context.hardware.AsQueryable();
 
-            return Ok(result);
+            if (filter != null)
+            {
+                foreach (var kv in filter)
+                {
+                    switch (kv.Key.ToLower())
+                    {
+                        case "cpu_model":
+                            query = query.Where(h => h.cpu_model.Contains(kv.Value));
+                            break;
+                        case "gpu_model":
+                            query = query.Where(h => h.gpu_model.Contains(kv.Value));
+                            break;
+                    }
+                }
+            }
+
+            var sortProperty = _sort.ToLower() switch
+            {
+                _ => _sort
+            };
+            query = _order.ToUpper() == "ASC"
+                ? query.OrderBy(h => EF.Property<object>(h, sortProperty))
+                : query.OrderByDescending(h => EF.Property<object>(h, sortProperty));
+
+            int totalCount = await query.CountAsync();
+            var hardware = await query
+                .Skip(_start)
+                .Take(pageSize)
+                .ToListAsync();
+
+            Response.Headers.Append("X-Total-Count", totalCount.ToString());
+            Response.Headers.Append("Access-Control-Expose-Headers", "X-Total-Count");
+
+            return Ok(hardware);
         }
 
-        // Создание новой записи о железе
-        [HttpPost("CreateHardware")]
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetHardware(int id)
+        {
+            var hardware = await _context.hardware.FindAsync(id);
+            return hardware == null ? NotFound() : Ok(hardware);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateHardware([FromBody] Hardware hardware)
         {
             _context.hardware.Add(hardware);
             await _context.SaveChangesAsync();
-
-            return Ok(hardware);
+            return CreatedAtAction(nameof(GetHardware), new { id = hardware.id }, hardware);
         }
 
-        // Редактирование записи о железе
-        [HttpPut("EditHardware")]
-        public async Task<IActionResult> EditHardware([FromBody] Hardware hardware)
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> EditHardware(int id, [FromBody] Hardware hardware)
         {
-            var rows = await _context.hardware.Where(x => x.hardware_id == hardware.hardware_id)
-                .ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.user_id, hardware.user_id)
-                .SetProperty(x => x.cpu_model, hardware.cpu_model)
-                .SetProperty(x => x.gpu_model, hardware.gpu_model)
-                .SetProperty(x => x.ram_amount, hardware.ram_amount)
-                );
+            if (id != hardware.id) return BadRequest();
 
-            return Ok(hardware);
+            _context.Entry(hardware).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
 
-        // Удаление записи о железе
-        [HttpDelete("DeleteHardware")]
-        public async Task<IActionResult> DeleteHardware(int hardware_id)
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteHardware(int id)
         {
-            var rows = await _context.hardware.Where(x => x.hardware_id == hardware_id).ExecuteDeleteAsync();
-
-            return Ok(true);
+            await _context.hardware.Where(x => x.id == id).ExecuteDeleteAsync();
+            return NoContent();
         }
     }
 }

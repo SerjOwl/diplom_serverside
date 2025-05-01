@@ -5737,11 +5737,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Solly\\source\\repos\\SkyServer\\SkyServer.csproj",
+      "projectUniqueName": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\SkyServer.csproj",
       "projectName": "SkyServer",
-      "projectPath": "C:\\Users\\Solly\\source\\repos\\SkyServer\\SkyServer.csproj",
+      "projectPath": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\SkyServer.csproj",
       "packagesPath": "C:\\Users\\Solly\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Solly\\source\\repos\\SkyServer\\obj\\",
+      "outputPath": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

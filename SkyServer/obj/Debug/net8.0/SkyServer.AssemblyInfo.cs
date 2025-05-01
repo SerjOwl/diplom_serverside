@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SkyServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+81d8eaa1cfde58e59f0471edb8ba277e8bee9893")]
 [assembly: System.Reflection.AssemblyProductAttribute("SkyServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SkyServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

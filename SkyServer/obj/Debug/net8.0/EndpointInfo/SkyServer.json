@@ -5,19 +5,64 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/CommandLogs/GetCommandLogs": {
+    "/api/CommandLogs": {
       "get": {
         "tags": [
           "CommandLogs"
         ],
+        "parameters": [
+          {
+            "name": "_end",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "_order",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "ASC"
+            }
+          },
+          {
+            "name": "_sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "id"
+            }
+          },
+          {
+            "name": "_start",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "style": "deepObject",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/CommandLogs/CreateCommandLog": {
+      },
       "post": {
         "tags": [
           "CommandLogs"
@@ -42,52 +87,22 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
           }
         }
       }
     },
-    "/api/CommandLogs/EditCommandLogs": {
-      "put": {
-        "tags": [
-          "CommandLogs"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommandLogs"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommandLogs"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CommandLogs"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/CommandLogs/DeleteCommandLogs": {
-      "delete": {
+    "/api/CommandLogs/{id}": {
+      "get": {
         "tags": [
           "CommandLogs"
         ],
         "parameters": [
           {
-            "name": "commandlog_id",
-            "in": "query",
+            "name": "id",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -97,23 +112,169 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CommandLogs"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommandLogs"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommandLogs"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommandLogs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "CommandLogs"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
           }
         }
       }
     },
-    "/api/ErrorLogs/GetErrorLogs": {
+    "/api/ErrorLogs": {
       "get": {
         "tags": [
           "ErrorLogs"
         ],
+        "parameters": [
+          {
+            "name": "_end",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "_order",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "ASC"
+            }
+          },
+          {
+            "name": "_sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "id"
+            }
+          },
+          {
+            "name": "_start",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "style": "deepObject",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/ErrorLogs/CreateErrorLog": {
+      },
       "post": {
         "tags": [
           "ErrorLogs"
@@ -138,52 +299,22 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
           }
         }
       }
     },
-    "/api/ErrorLogs/EditErrorLog": {
-      "put": {
-        "tags": [
-          "ErrorLogs"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ErrorLogs"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ErrorLogs"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ErrorLogs"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/ErrorLogs/DeleteErrorLog": {
-      "delete": {
+    "/api/ErrorLogs/{id}": {
+      "get": {
         "tags": [
           "ErrorLogs"
         ],
         "parameters": [
           {
-            "name": "errorlog_id",
-            "in": "query",
+            "name": "id",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -193,14 +324,115 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ErrorLogs"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorLogs"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorLogs"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ErrorLogs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ErrorLogs"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
           }
         }
       }
     },
-    "/api/Hardware/GetHardware": {
+    "/api/ErrorStatsDaily": {
       "get": {
         "tags": [
-          "Hardware"
+          "ErrorStatsDaily"
         ],
         "responses": {
           "200": {
@@ -209,7 +441,64 @@
         }
       }
     },
-    "/api/Hardware/CreateHardware": {
+    "/api/Hardware": {
+      "get": {
+        "tags": [
+          "Hardware"
+        ],
+        "parameters": [
+          {
+            "name": "_end",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "_order",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "ASC"
+            }
+          },
+          {
+            "name": "_sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "id"
+            }
+          },
+          {
+            "name": "_start",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "style": "deepObject",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
       "post": {
         "tags": [
           "Hardware"
@@ -234,52 +523,22 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
           }
         }
       }
     },
-    "/api/Hardware/EditHardware": {
-      "put": {
-        "tags": [
-          "Hardware"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Hardware"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Hardware"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Hardware"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Hardware/DeleteHardware": {
-      "delete": {
+    "/api/Hardware/{id}": {
+      "get": {
         "tags": [
           "Hardware"
         ],
         "parameters": [
           {
-            "name": "hardware_id",
-            "in": "query",
+            "name": "id",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -289,23 +548,169 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Hardware"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Hardware"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Hardware"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Hardware"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Hardware"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
           }
         }
       }
     },
-    "/api/NeuroLogs/GetNeuroLogs": {
+    "/api/NeuroLogs": {
       "get": {
         "tags": [
           "NeuroLogs"
+        ],
+        "parameters": [
+          {
+            "name": "_end",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "_order",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "ASC"
+            }
+          },
+          {
+            "name": "_sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "id"
+            }
+          },
+          {
+            "name": "_start",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "style": "deepObject",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
         ],
         "responses": {
           "200": {
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/NeuroLogs/CreateNeuroLog": {
+      },
       "post": {
         "tags": [
           "NeuroLogs"
@@ -330,16 +735,68 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
           }
         }
       }
     },
-    "/api/NeuroLogs/EditNeuroLog": {
+    "/api/NeuroLogs/{id}": {
+      "get": {
+        "tags": [
+          "NeuroLogs"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
       "put": {
         "tags": [
           "NeuroLogs"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
@@ -361,24 +818,114 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
-      }
-    },
-    "/api/NeuroLogs/DeleteNeuroLog": {
+      },
       "delete": {
         "tags": [
           "NeuroLogs"
         ],
         "parameters": [
           {
-            "name": "errorlog_id",
-            "in": "query",
+            "name": "id",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/api/NeurologsStats": {
+      "get": {
+        "tags": [
+          "NeurologsStats"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Performance": {
+      "get": {
+        "tags": [
+          "Performance"
+        ],
+        "parameters": [
+          {
+            "name": "_end",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "_order",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "ASC"
+            }
+          },
+          {
+            "name": "_sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "id"
+            }
+          },
+          {
+            "name": "_start",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "style": "deepObject",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
             }
           }
         ],
@@ -387,21 +934,7 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Performance/GetPerformances": {
-      "get": {
-        "tags": [
-          "Performance"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Performance/CreatePerformance": {
+      },
       "post": {
         "tags": [
           "Performance"
@@ -426,16 +959,68 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
           }
         }
       }
     },
-    "/api/Performance/EditPerformance": {
+    "/api/Performance/{id}": {
+      "get": {
+        "tags": [
+          "Performance"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
       "put": {
         "tags": [
           "Performance"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
@@ -457,24 +1042,102 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
-      }
-    },
-    "/api/Performance/DeletePerformance": {
+      },
       "delete": {
         "tags": [
           "Performance"
         ],
         "parameters": [
           {
-            "name": "performance_id",
-            "in": "query",
+            "name": "id",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/api/Users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "_end",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "_order",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "ASC"
+            }
+          },
+          {
+            "name": "_sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "id"
+            }
+          },
+          {
+            "name": "_start",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "style": "deepObject",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
             }
           }
         ],
@@ -483,21 +1146,7 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Users/GetUsers": {
-      "get": {
-        "tags": [
-          "Users"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Users/CreateUser": {
+      },
       "post": {
         "tags": [
           "Users"
@@ -522,16 +1171,68 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
           }
         }
       }
     },
-    "/api/Users/EditUser": {
+    "/api/Users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
       "put": {
         "tags": [
           "Users"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
@@ -553,21 +1254,40 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
-      }
-    },
-    "/api/Users/DeleteUser": {
+      },
       "delete": {
         "tags": [
           "Users"
         ],
         "parameters": [
           {
-            "name": "user_id",
-            "in": "query",
+            "name": "id",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -575,8 +1295,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "No Content"
           }
         }
       }
@@ -587,7 +1307,7 @@
       "CommandLogs": {
         "type": "object",
         "properties": {
-          "commandlog_id": {
+          "id": {
             "type": "integer",
             "format": "int32"
           },
@@ -617,7 +1337,7 @@
       "ErrorLogs": {
         "type": "object",
         "properties": {
-          "errorlog_id": {
+          "id": {
             "type": "integer",
             "format": "int32"
           },
@@ -647,7 +1367,7 @@
       "Hardware": {
         "type": "object",
         "properties": {
-          "hardware_id": {
+          "id": {
             "type": "integer",
             "format": "int32"
           },
@@ -673,7 +1393,7 @@
       "NeuroLogs": {
         "type": "object",
         "properties": {
-          "errorlog_id": {
+          "id": {
             "type": "integer",
             "format": "int32"
           },
@@ -682,8 +1402,8 @@
             "format": "int32"
           },
           "session_id": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "nullable": true
           },
           "prompt": {
             "type": "string",
@@ -701,7 +1421,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "error_messagge": {
+          "error_message": {
             "type": "string",
             "nullable": true
           }
@@ -711,7 +1431,7 @@
       "Performance": {
         "type": "object",
         "properties": {
-          "performance_id": {
+          "id": {
             "type": "integer",
             "format": "int32"
           },
@@ -750,10 +1470,37 @@
         },
         "additionalProperties": false
       },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
       "Users": {
         "type": "object",
         "properties": {
-          "user_id": {
+          "id": {
             "type": "integer",
             "format": "int32"
           },
