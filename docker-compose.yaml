@@ -21,7 +21,7 @@ networks:
       networks:
         - dev
 
-    admin-panel:
+    adminpanel:
       build:
         context: ./sky-admin
       networks:
