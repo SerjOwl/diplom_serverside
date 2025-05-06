@@ -27,8 +27,12 @@ export const convertTimeToMilliseconds = (timeString: any) => {
   
     return hrs + mins + secs + ms;
   };
-  
-  // Пример использования
-  const milliseconds = convertTimeToMilliseconds("00:00:22.1888520");
-  console.log(milliseconds); // 22188
-  
+
+  export function getYearMonth(dateString: string) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    // getMonth() возвращает месяц от 0 до 11, поэтому прибавляем 1
+    // и добавляем ведущий ноль, если месяц однозначный
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    return `${year}-${month}`;
+  }

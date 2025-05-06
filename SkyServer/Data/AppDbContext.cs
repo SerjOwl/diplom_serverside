@@ -19,5 +19,6 @@ namespace SkyServer.Data
         // PROCS
         public DbSet<NeurologStats> NeurologStats { get; set; }
         public DbSet<ErrorStatsDaily> ErrorStatsDaily { get; set; }
+        public DbSet<UserGrowthMonthly> UserGrowthMonthly { get; set; }
     }
 }

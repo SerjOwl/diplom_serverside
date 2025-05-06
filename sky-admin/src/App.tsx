@@ -6,6 +6,7 @@ import { CommandlogShow, ErrorlogShow, UserShow, HardwareShow, PerformanceShow, 
 import { CommandlogEdit, ErrorlogEdit, UserEdit, HardwareEdit, PerformanceEdit, NeurologEdit } from "./pages/edits";
 import { NeuroStatsList } from "./pages/neurostats"
 import { ErrorStatsList } from "./pages/errorstats"
+import { UserGrowthList } from "./pages/usergrowth"
 
 export const App = () => (
   <Admin layout={Layout} dataProvider={dataProvider}>
@@ -21,5 +22,6 @@ export const App = () => (
     {/* Stats pages */}
     <Resource name="NeurologStats" list={NeuroStatsList} options={{ label: 'Статистика нейросети' }} />
     <Resource name="ErrorStatsDaily" list={ErrorStatsList} options={{ label: 'Статистика ошибок' }} />
+    <Resource name="UserGrowthMonthly" list={UserGrowthList} options={{ label: 'Статистика роста пользователей' }} />
   </Admin>
 );

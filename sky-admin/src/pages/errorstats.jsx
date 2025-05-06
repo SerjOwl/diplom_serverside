@@ -10,7 +10,6 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { convertTimeToMilliseconds } from '../modules/utils';
 
 const months = [
   { label: 'Все месяцы', value: 0 },
@@ -31,41 +30,58 @@ const months = [
 const ChartSection = () => {
   const { data } = useListContext();
 
+  // Преобразование и сортировка данных
   const processedData = React.useMemo(() => {
     if (!data || data.length === 0) return [];
 
+    // Собираем все уникальные даты и типы ошибок
     const allDates = Array.from(new Set(data.map(e => e.day))).sort();
     const allTypes = Array.from(new Set(data.map(e => e.error_type)));
 
+    // Формируем массив данных для графика
     return allDates.map(date => {
-      const entry = { date: new Date(date).toLocaleDateString() };
+      const dateObj = new Date(date);
+      const entry = { 
+        date: dateObj,
+        dateStr: dateObj.toLocaleDateString(),
+        year: dateObj.getFullYear(),
+        month: dateObj.getMonth() + 1
+      };
+
+      // Добавляем количество ошибок для каждого типа
       allTypes.forEach(type => {
         const stat = data.find(e => e.day === date && e.error_type === type);
         entry[type] = stat ? stat.error_count : 0;
       });
+
       return entry;
     });
   }, [data]);
 
+  // Получаем список типов ошибок для отображения в графике
   const errorTypes = React.useMemo(() => {
     if (!data) return [];
     return Array.from(new Set(data.map(e => e.error_type)));
   }, [data]);
 
+  // Цвета для линий графика
   const errorColors = [
     '#e6194b', '#3cb44b', '#ffe119', '#4363d8',
     '#f58231', '#911eb4', '#46f0f0', '#f032e6',
     '#bcf60c', '#fabebe', '#008080', '#e6beff'
   ];
 
+  // Получаем список доступных годов из данных
   const years = React.useMemo(() => {
     const set = new Set(processedData.map(d => d.year));
     return Array.from(set).sort((a, b) => a - b);
   }, [processedData]);
 
+  // Состояния для фильтрации
   const [selectedYear, setSelectedYear] = React.useState(years[0] || null);
   const [selectedMonth, setSelectedMonth] = React.useState(0);
 
+  // Фильтрация данных по году и месяцу
   const filteredData = React.useMemo(() => {
     if (!selectedYear) return [];
 
@@ -76,11 +92,13 @@ const ChartSection = () => {
     });
   }, [processedData, selectedYear, selectedMonth]);
 
+  // Состояния для управления областью просмотра графика
   const [viewRange, setViewRange] = React.useState({
     startIndex: 0,
     endIndex: filteredData.length > 0 ? filteredData.length - 1 : 0,
   });
 
+  // Сброс области просмотра при изменении фильтров
   React.useEffect(() => {
     setViewRange({
       startIndex: 0,
@@ -88,23 +106,18 @@ const ChartSection = () => {
     });
   }, [filteredData]);
 
+  // Логика для панорамирования графика
   const [isDragging, setIsDragging] = React.useState(false);
   const dragStartX = React.useRef(null);
   const dragStartRange = React.useRef(null);
-
   const maxIndex = filteredData.length - 1;
 
+  // Видимые данные в текущей области просмотра
   const visibleData = React.useMemo(() => {
     return filteredData.slice(viewRange.startIndex, viewRange.endIndex + 1);
   }, [filteredData, viewRange]);
 
-  const maxTokens = React.useMemo(() => {
-    if (visibleData.length === 0) return 0;
-    const maxInput = Math.max(...visibleData.map(d => d.inputTokens));
-    const maxOutput = Math.max(...visibleData.map(d => d.outputTokens));
-    return Math.max(maxInput, maxOutput);
-  }, [visibleData]);
-
+  // Обработчики событий мыши для панорамирования
   const onMouseDown = (e) => {
     setIsDragging(true);
     dragStartX.current = e.clientX;
@@ -123,6 +136,7 @@ const ChartSection = () => {
 
     const rangeSize = dragStartRange.current.endIndex - dragStartRange.current.startIndex;
 
+    // Проверка границ
     if (newStart < 0) {
       newStart = 0;
       newEnd = rangeSize;
@@ -139,6 +153,7 @@ const ChartSection = () => {
     setIsDragging(false);
   };
 
+  // Обработчик колеса мыши для масштабирования
   const onWheel = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -147,7 +162,7 @@ const ChartSection = () => {
     let { startIndex, endIndex } = viewRange;
     const rangeSize = endIndex - startIndex;
 
-    if (e.deltaY < 0) {
+    if (e.deltaY < 0) { // Уменьшение масштаба
       if (rangeSize > 5) {
         const newRangeSize = Math.max(5, rangeSize - zoomStep);
         const center = Math.floor((startIndex + endIndex) / 2);
@@ -155,7 +170,7 @@ const ChartSection = () => {
         endIndex = Math.min(maxIndex, startIndex + newRangeSize);
         startIndex = endIndex - newRangeSize;
       }
-    } else {
+    } else { // Увеличение масштаба
       const newRangeSize = Math.min(maxIndex, rangeSize + zoomStep);
       const center = Math.floor((startIndex + endIndex) / 2);
       startIndex = Math.max(0, center - Math.floor(newRangeSize / 2));
@@ -167,29 +182,71 @@ const ChartSection = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div
+      style={{ padding: '20px', userSelect: isDragging ? 'none' : 'auto' }}
+      onMouseDown={onMouseDown}
+      onMouseMove={onMouseMove}
+      onMouseUp={onMouseUp}
+      onMouseLeave={onMouseUp}
+      onWheel={onWheel}
+    >
       <h2>График ошибок</h2>
 
-      <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={processedData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" interval="preserveStartEnd" />
-          <YAxis yAxisId="left" domain={[0, 'auto']} />
-          <Tooltip />
-          <Legend />
-          {errorTypes.map((type, idx) => (
-            <Line
-              key={type}
-              yAxisId="left"
-              type="monotone"
-              dataKey={type}
-              stroke={errorColors[idx % errorColors.length]}
-              name={type}
-              dot={false}
-            />
-          ))}
-        </LineChart>
-      </ResponsiveContainer>
+      {/* Фильтры по году и месяцу */}
+      <div style={{ marginBottom: 20 }}>
+        <label>
+          Год:{' '}
+          <select
+            value={selectedYear || ''}
+            onChange={(e) => setSelectedYear(Number(e.target.value))}
+          >
+            {years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label style={{ marginLeft: 20 }}>
+          Месяц:{' '}
+          <select
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(Number(e.target.value))}
+          >
+            {months.map(({ label, value }) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
+      {/* Основной график ошибок */}
+      <div>
+        <h3>Количество ошибок по типам</h3>
+        <ResponsiveContainer width="100%" height={400}>
+          <LineChart data={visibleData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="dateStr" interval="preserveStartEnd" />
+            <YAxis yAxisId="left" domain={[0, 'auto']} />
+            <Tooltip />
+            <Legend />
+            {errorTypes.map((type, idx) => (
+              <Line
+                key={type}
+                yAxisId="left"
+                type="monotone"
+                dataKey={type}
+                stroke={errorColors[idx % errorColors.length]}
+                name={type}
+                dot={false}
+              />
+            ))}
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };

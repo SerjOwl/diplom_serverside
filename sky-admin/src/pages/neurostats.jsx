@@ -172,7 +172,6 @@ const ChartSection = () => {
     >
       <h2>Графики производительности</h2>
 
-      {/* Выбор года и месяца */}
       <div style={{ marginBottom: 20 }}>
         <label>
           Год:{' '}

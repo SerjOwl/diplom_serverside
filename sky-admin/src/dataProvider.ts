@@ -31,7 +31,7 @@ export const dataProvider = {
     if (resource === "NeurologStats") {
       // Кастомная реализация для статистики
       try {
-        const response = await fetch('https://localhost:7171/api/NeurologsStats');
+        const response = await fetch(import.meta.env.VITE_JSON_SERVER_URL + '/NeurologsStats');
         let data = await response.json();
         
         // Добавляем id и санитайзим данные
@@ -50,7 +50,7 @@ export const dataProvider = {
     if (resource === "ErrorStatsDaily") {
       // Кастомная реализация для статистики
       try {
-        const response = await fetch('https://localhost:7171/api/ErrorStatsDaily');
+        const response = await fetch(import.meta.env.VITE_JSON_SERVER_URL + '/ErrorStatsDaily');
         let data = await response.json();
         
         // Добавляем id и санитайзим данные
@@ -62,6 +62,25 @@ export const dataProvider = {
         };
       } catch (error) {
         console.error("Ошибка загрузки ErrorStatsDaily:", error);
+        return { data: [], total: 0 };
+      }
+    }
+
+    if (resource === "UserGrowthMonthly") {
+      // Кастомная реализация для статистики
+      try {
+        const response = await fetch(import.meta.env.VITE_JSON_SERVER_URL + '/UserGrowthMonthly');
+        let data = await response.json();
+        
+        // Добавляем id и санитайзим данные
+        data = addIdsForStats(data).map(sanitizeRecord);
+        
+        return {
+          data,
+          total: data.length,
+        };
+      } catch (error) {
+        console.error("Ошибка загрузки UserGrowthMonthly:", error);
         return { data: [], total: 0 };
       }
     }
