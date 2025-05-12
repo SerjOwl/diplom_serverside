@@ -38,8 +38,7 @@
               "RelativeToolTip": "Data\\AppDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-06T13:52:13.205Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-06T13:52:13.205Z"
             },
             {
               "$type": "Document",
@@ -49,7 +48,7 @@
               "RelativeDocumentMoniker": "Controllers\\UserGrowthMonthlyController.cs",
               "ToolTip": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Controllers\\UserGrowthMonthlyController.cs",
               "RelativeToolTip": "Controllers\\UserGrowthMonthlyController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-06T13:51:08.444Z",
               "EditorCaption": ""
@@ -62,10 +61,9 @@
               "RelativeDocumentMoniker": "Models\\UserGrowthMonthly.cs",
               "ToolTip": "C:\\Users\\Solly\\Documents\\GitHub\\diplom_serverside\\SkyServer\\Models\\UserGrowthMonthly.cs",
               "RelativeToolTip": "Models\\UserGrowthMonthly.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-06T13:47:39.285Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-06T13:47:39.285Z"
             },
             {
               "$type": "Document",
@@ -77,8 +75,7 @@
               "RelativeToolTip": "Controllers\\NeurologsStatsController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T14:34:43.144Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-30T14:34:43.144Z"
             }
           ]
         }
