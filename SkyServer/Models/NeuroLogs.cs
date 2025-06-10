@@ -13,5 +13,6 @@ namespace SkyServer.Models
         public int input_tokens { get; set; }
         public int output_tokens { get; set; }
         public string? error_message { get; set; }
+        public DateTime created_at { get; set; }
     }
 }

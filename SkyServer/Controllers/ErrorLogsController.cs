@@ -77,6 +77,7 @@ namespace SkyServer.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateErrorLog([FromBody] ErrorLogs errorLog)
         {
+            errorLog.created_at = errorLog.created_at.ToUniversalTime();
             _context.errorlogs.Add(errorLog);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetErrorLog), new { id = errorLog.id }, errorLog);

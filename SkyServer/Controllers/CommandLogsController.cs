@@ -1,5 +1,4 @@
-﻿// CommandLogsController.cs
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SkyServer.Data;
 using SkyServer.Models;
@@ -77,6 +76,7 @@ namespace SkyServer.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateCommandLog([FromBody] CommandLogs commandLog)
         {
+            commandLog.created_at = commandLog.created_at.ToUniversalTime();
             _context.commandlogs.Add(commandLog);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetCommandLog), new { id = commandLog.id }, commandLog);

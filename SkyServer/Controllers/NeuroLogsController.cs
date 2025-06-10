@@ -77,6 +77,7 @@ namespace SkyServer.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateNeuroLog([FromBody] NeuroLogs neuroLog)
         {
+            neuroLog.created_at = neuroLog.created_at.ToUniversalTime();
             _context.neurologs.Add(neuroLog);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetNeuroLog), new { id = neuroLog.id }, neuroLog);

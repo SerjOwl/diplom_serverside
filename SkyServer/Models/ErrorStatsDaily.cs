@@ -1,14 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-[Keyless]
-public class ErrorStatsDaily
+namespace SkyServer.Models
 {
-    public string error_type { get; set; } = null!;
+    [Keyless]
+    public class ErrorStatsDaily
+    {
+        public string error_type { get; set; } = null!;
 
-    public DateTime day { get; set; }
+        public DateTime day { get; set; }
 
-    public long error_count { get; set; }
+        public long error_count { get; set; }
 
-    public long affected_users { get; set; }
+        public long affected_users { get; set; }
+    }
 }

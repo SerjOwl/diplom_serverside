@@ -75,6 +75,7 @@ namespace SkyServer.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreatePerformance([FromBody] Performance performance)
         {
+            performance.created_at = performance.created_at.ToUniversalTime();
             _context.performance.Add(performance);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetPerformance), new { id = performance.id }, performance);

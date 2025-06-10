@@ -3,6 +3,7 @@ import uvicorn
 import re
 import time
 import uuid
+import httpx  # добавляем импорт httpx
 
 from ollama import chat, ChatResponse
 from fastapi import FastAPI, Query
@@ -14,6 +15,20 @@ system_prompt = 'You are a module of an application called SkyAI. You must answe
 app = FastAPI()
 
 config = Config()
+
+# Асинхронная функция для отправки логов
+async def send_log(log_data: dict):
+    headers = {
+        "accept": "*/*",
+        "Content-Type": "application/json"
+    }
+    async with httpx.AsyncClient(verify=False) as client:  # verify=False для локального https
+        try:
+            response = await client.post(config.url, json=log_data, headers=headers)
+            response.raise_for_status()
+        except Exception as e:
+            # Логируем ошибку отправки лога, но не прерываем основное выполнение
+            print(f"Ошибка отправки лога: {e}")
 
 @app.get("/ask_deepseek")
 async def ask_deepseek(
@@ -34,19 +49,18 @@ async def ask_deepseek(
         session_id = str(uuid.uuid4())
 
     # тестовый режим работы сервера, просто отправляю приколы обратно.
-    # если нужна проверка работоспособности закомментить
-    if user_id != None:
+    if user_id is None:
         return {
-        "user_id": user_id,
-        "session_id": "test session_id",
-        "prompt": input_content,
-        "response": input_content,
-        "deep_think": "test deep_think",
-        "response_time": "test response_time",
-        "input_tokens": "test input_tokens",
-        "output_tokens": "test output_tokens",
-        "error_message": "test error_message"
-    }
+            "user_id": user_id,
+            "session_id": "test session_id",
+            "prompt": input_content,
+            "response": input_content,
+            "deep_think": "test deep_think",
+            "response_time": "test response_time",
+            "input_tokens": "test input_tokens",
+            "output_tokens": "test output_tokens",
+            "error_message": "test error_message"
+        }
 
     try:
         response: ChatResponse = chat(
@@ -64,29 +78,43 @@ async def ask_deepseek(
         think_texts = "\n\n".join(re.findall(r'<think>(.*?)</think>', response_text, flags=re.DOTALL)).strip()
         clean_response = re.sub(r'<think>.*?</think>', '', response_text, flags=re.DOTALL).strip()
 
-        # Пример получения количества токенов (зависит от используемой модели/библиотеки)
-        input_tokens = len(input_content.split())  # Примерный подсчет токенов
-        output_tokens = len(response_text.split())  # Примерный подсчет токенов
+        input_tokens = len(input_content.split())  # примерный подсчет токенов
+        output_tokens = len(response_text.split())  # примерный подсчет токенов
 
     except Exception as e:
         error_message = str(e)
+        clean_response = None
 
-    response_time = int((time.time() - start_time) * 1000)  # В миллисекундах
+    response_time_seconds = time.time() - start_time
+    response_time_str = time.strftime("%H:%M:%S", time.gmtime(response_time_seconds)) + f".{int((response_time_seconds % 1) * 1e7):07d}"
+
+    # Формируем данные для лога
+    log_data = {
+        "user_id": int(user_id) if user_id.isdigit() else user_id,
+        "session_id": session_id,
+        "prompt": input_content,
+        "response_time": response_time_str,
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "error_message": error_message,
+        "created_at": time.strftime("%Y-%m-%dT%H:%M:%S")
+    }
+
+    asyncio.create_task(send_log(log_data))
 
     return {
         "user_id": user_id,
         "session_id": session_id,
         "prompt": input_content,
-        "response": clean_response if not error_message else None,
+        "response": clean_response,
         "deep_think": think_texts if deep_think and not error_message else None,
-        "response_time": response_time,
+        "response_time": int(response_time_seconds * 1000),  # в миллисекундах
         "input_tokens": input_tokens,
         "output_tokens": output_tokens,
         "error_message": error_message
     }
 
 origins = ["*"]
-# origins = ["http://localhost:5173"]
 
 app.add_middleware(
     CORSMiddleware,

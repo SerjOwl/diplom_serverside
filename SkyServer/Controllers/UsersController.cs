@@ -86,6 +86,7 @@ namespace SkyServer.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateUser([FromBody] Users user)
         {
+            user.created_at = user.created_at.ToUniversalTime();
             _context.users.Add(user);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetUser), new { id = user.id }, user);

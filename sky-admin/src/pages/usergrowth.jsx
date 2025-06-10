@@ -127,7 +127,7 @@ const ChartSection = () => {
 
       {/* Основной график */}
       <div>
-        <h3>Количество пользователей по месяцам</h3>
+        <h3>Рост пользователей по месяцам</h3>
         <ResponsiveContainer width="100%" height={400}>
           <LineChart data={visibleData}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -139,7 +139,7 @@ const ChartSection = () => {
               type="monotone"
               dataKey="userCount"
               stroke="#3cb44b"
-              name="Количество пользователей"
+              name="Прирост пользователей"
               dot={false}
               activeDot={{ r: 8 }}
             />
